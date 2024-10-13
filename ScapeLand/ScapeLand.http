@@ -1,0 +1,6 @@
+@ScapeLand_HostAddress = http://localhost:5108
+
+GET {{ScapeLand_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
