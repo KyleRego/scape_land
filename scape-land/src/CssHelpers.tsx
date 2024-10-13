@@ -1,8 +1,8 @@
-export function styleHiddenIfNull(obj: any) {
+export function showIfNull(obj: any) {
     return {display: (obj === null ? 'block' : 'none')};
 }
 
-export function styleShownIfNotNull(obj: any) {
+export function hideIfNull(obj: any) {
     return {display: (obj === null ? 'none' : 'block')};
 }
 

@@ -1,30 +1,13 @@
-import { useState, useEffect } from 'react';
-import Prompt from './Prompt';
-import apiClient from './apiClient';
-
 import './App.css';
-import PromptDto from './dtos/PromptDto';
+import Game from './Game';
+import { GameStateProvider } from './GameState';
 
 function App() {
-  useEffect(() => {
-    apiClient.get<PromptDto>('/api/Prompt')
-      .then(response => {
-        setPrompt(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-
-  const [prompt, setPrompt] = useState<PromptDto | null>(null);
-
-  if (prompt === null) return <div>Loading</div>;
-
-  return (
-    <>
-      <Prompt text={prompt.text} options={prompt.options} />
-    </>
-  );
+    return (
+        <GameStateProvider>
+            <Game />
+        </GameStateProvider>
+    );
 }
 
 export default App
