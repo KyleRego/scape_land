@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.HttpResults;
 using ScapeLand.Data;
+using ScapeLand.Services;
+using ScapeLand.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 string clientAppOrigin = builder.Configuration
@@ -15,8 +17,6 @@ string dbConn = builder.Configuration.GetValue<string>("DbConn")
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-
-builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddCors(options =>
 {
@@ -32,6 +32,10 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(dbConn)
 );
+
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddHostedService<GameOrchestrator>();
+builder.Services.AddSingleton<GameState>();
 
 var app = builder.Build();
 
