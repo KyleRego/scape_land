@@ -5,7 +5,7 @@ using ScapeLand.Entity;
 namespace ScapeLand.Services;
 
 public interface ICrudServiceBase<TDto, TNtt, TRep>
-                    where TRep : ICrudRepository<TNtt> where TNtt : NttBase
+                    where TRep : ICrudData<TNtt> where TNtt : NttBase
 {
     public Task Create(TDto dto);
     public Task<TDto> Get(string id);
@@ -16,7 +16,7 @@ public interface ICrudServiceBase<TDto, TNtt, TRep>
 public abstract class CrudServiceBase<TDto, TNtt, TRep>(IMapper mapper,
                                                         TRep repository)
                                         : ICrudServiceBase<TDto, TNtt, TRep>
-                        where TRep : ICrudRepository<TNtt> where TNtt : NttBase
+                        where TRep : ICrudData<TNtt> where TNtt : NttBase
 {
     protected readonly TRep _rep = repository;
     protected readonly IMapper _mapper = mapper;

@@ -3,23 +3,29 @@ using ScapeLand.Entity;
 
 namespace ScapeLand.Data;
 
-public interface ICrudRepository<T> where T : NttBase
+public interface ICrudData<T> where T : NttBase
 {
     public Task Create(T ntt);
     public Task<T> Find(string id);
+    public Task<T?> FindOrNull(string id);
     public Task Update(T ntt);
     public Task Delete(T ntt);
 }
 
-public abstract class CrudRepository<T>(AppDbContext dbC) : ICrudRepository<T>
+public abstract class CrudData<T>(AppDbContext dbC) : ICrudData<T>
                                                              where T : NttBase 
 {
     protected readonly AppDbContext _dbC = dbC;
 
     public async Task<T> Find(string id)
     {
-        return await _dbC.Set<T>().FirstOrDefaultAsync(e => e.Id == id)
+        return await FindOrNull(id)
             ?? throw new ApplicationException("Entity not found by id");
+    }
+
+    public async Task<T?> FindOrNull(string id)
+    {
+        return await _dbC.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task Create(T ntt)
