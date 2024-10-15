@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http.HttpResults;
 using ScapeLand.Data;
 using ScapeLand.Services;
 using ScapeLand.Model;
@@ -36,6 +34,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddHostedService<GameOrchestrator>();
 builder.Services.AddSingleton<GameState>();
+builder.Services.AddSingleton<Grid>();
 
 var app = builder.Build();
 
