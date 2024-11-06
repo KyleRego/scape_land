@@ -1,20 +1,29 @@
 namespace ScapeLand.Model;
 
-public struct Vector
+public struct Vector(int x, int y)
 {
-    private readonly static Random _rnd = new(); 
+    private readonly static Random _rng = new(); 
     private readonly static int _xMaximum = 100;
     private readonly static int _yMaximum = _xMaximum;
 
-    public int X { get; set; }
-    public int Y { get; set; }
+    // TODO: Use property setters to prevent
+    // this from being greater than maximum coords
+    public int X { get; set; } = x;
+    public int Y { get; set; } = y;
 
     public static Vector Random()
     {
         return new()
         {
-            X = _rnd.Next(_xMaximum),
-            Y = _rnd.Next(_yMaximum)
+            X = _rng.Next(_xMaximum),
+            Y = _rng.Next(_yMaximum)
         };
+    }
+
+    public readonly double DistanceTo(Vector other)
+    {
+        int deltaX = Math.Abs(other.X - X);
+        int deltaY = Math.Abs(other.Y - Y);
+        return Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2));
     }
 }

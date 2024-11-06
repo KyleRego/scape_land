@@ -3,7 +3,7 @@ using ScapeLand.Entity;
 
 namespace ScapeLand.Data;
 
-public interface ICrudData<T> where T : NttBase
+public interface ICrudData<T> where T : EntityBase
 {
     public Task Create(T ntt);
     public Task<T> Find(string id);
@@ -13,7 +13,7 @@ public interface ICrudData<T> where T : NttBase
 }
 
 public abstract class CrudData<T>(AppDbContext dbC) : ICrudData<T>
-                                                             where T : NttBase 
+                                                             where T : EntityBase 
 {
     protected readonly AppDbContext _dbC = dbC;
 

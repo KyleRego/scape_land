@@ -4,14 +4,29 @@ public class GameState
 {
     public GameState()
     {
-        Characters = [];
+        Entities = [];
 
         for (int i = 0; i < 10; i += 1)
         {
-            Character newChar = new();
-            Characters[newChar.Id] = newChar;
+            GameEntity entity = new();
+            Entities[entity.Id] = entity;
         }
     }
 
-    public Dictionary<string, Character> Characters { get; set; }
+    public Dictionary<string, GameEntity> Entities { get; set; }
+
+    public Dictionary<string, GameEntity> Local(Vector localPosition)
+    {
+        Dictionary<string, GameEntity> localEntities = [];
+
+        foreach (GameEntity entity in Entities.Values)
+        {
+            if (localPosition.DistanceTo(entity.Position) < 40)
+            {
+                localEntities[entity.Id] = entity;
+            }
+        }
+
+        return localEntities;
+    }
 }

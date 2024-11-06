@@ -34,7 +34,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddHostedService<GameOrchestrator>();
 builder.Services.AddSingleton<GameState>();
-builder.Services.AddSingleton<Grid>();
 
 var app = builder.Build();
 
